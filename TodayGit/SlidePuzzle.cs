@@ -25,7 +25,7 @@ namespace TodayGit
             int[,] map = RandomNumber();
             Player player = new Player();
 
-            RenderMap(map);
+            RenderMap(map, player);
         }
 
         public Direction GameInput(Player player)
@@ -53,6 +53,44 @@ namespace TodayGit
                     break;
             }
             return dir;
+        }
+
+        public Player GameUpdate(Direction input, int?[,] map, Player player)
+        {
+            Player prevPlayer = player;
+
+            switch (input)
+            {
+                case Direction.Up:
+                    player.y--;
+                    break;
+                case Direction.Down:
+                    player.y++;
+                    break;
+                case Direction.Left:
+                    player.x--;
+                    break;
+                case Direction.Right:
+                    player.x++;
+                    break;               
+            }
+
+            if (map[player.y, player.x] == null)
+                player = prevPlayer;
+
+            for (int i = 0; i < map.GetLength(0); i++)
+            {
+                for (int j = 0; j < map.GetLength(1); j++)
+                {
+                    if (map[i, j] == map[player.y, player.x])
+                    {
+                        i = prevPlayer.x;
+                        j = prevPlayer.y;
+                    }                    
+                }                
+            }
+
+            return player;
         }
 
         public int[,] RandomNumber()
@@ -85,12 +123,17 @@ namespace TodayGit
             return number;
         }
 
-        public void RenderMap(int[,] number)
+        public void RenderMap(int[,] number, Player player)
         {
             for (int i = 0; i < number.GetLength(0); i++)
             {
                 for (int j = 0; j < number.GetLength(1); j++)
                 {
+                    if (number[i, j] == 0)
+                    {
+                        player.x = i;
+                        player.y = j;
+                    }
                     Console.Write($" {number[i, j]}\t");
                 }
                 Console.WriteLine();
