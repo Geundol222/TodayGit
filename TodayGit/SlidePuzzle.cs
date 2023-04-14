@@ -28,6 +28,33 @@ namespace TodayGit
             RenderMap(map);
         }
 
+        public Direction GameInput(Player player)
+        {
+            Direction dir;
+
+            ConsoleKeyInfo info = Console.ReadKey();
+
+            switch(info.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    dir = Direction.Up; 
+                    break;
+                case ConsoleKey.DownArrow:
+                    dir = Direction.Down;
+                    break;
+                case ConsoleKey.LeftArrow:
+                    dir = Direction.Left;
+                    break;
+                case ConsoleKey.RightArrow:
+                    dir = Direction.Right;
+                    break;
+                default:
+                    dir = Direction.None;
+                    break;
+            }
+            return dir;
+        }
+
         public int[,] RandomNumber()
         {
             Random rand = new Random();
