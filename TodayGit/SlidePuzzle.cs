@@ -8,6 +8,8 @@ namespace TodayGit
 {
     internal class SlidePuzzle
     {
+        enum Direction { Up, Down, Left, Right, None}
+
         public int[,] RandomNumber()
         {
             Random rand = new Random();
