@@ -106,7 +106,11 @@ namespace TodayGit
                     Bingo[i, j] = num[index++];
                 }
             }
+            return Bingo;
+        }
 
+        static void RenderMap(string[,] Bingo)
+        {
             for (int i = 0; i < Bingo.GetLength(0); i++)
             {
                 for (int j = 0; j < Bingo.GetLength(1); j++)
@@ -116,8 +120,6 @@ namespace TodayGit
                 Console.WriteLine();
                 Console.WriteLine();
             }
-
-            return Bingo;
         }
 
     }
