@@ -18,5 +18,13 @@
 
             Console.WriteLine(result);
         }
+
+        static void WordCount()
+        {
+            string str = Console.ReadLine();
+            string[] strArray = str.Split(' ');
+
+            Console.WriteLine(strArray.Length);
+        }
     }
 }
