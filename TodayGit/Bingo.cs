@@ -9,19 +9,20 @@ namespace TodayGit
 {
     internal class Bingo
     {
-        public static void GameStart()
+        public void GameStart()
         {
             string[,] Bingo = RenderNumber();
-            int count = 0;
+            string[,] comBingo = RenderNumber();
+            int playerCount = 0;
+            int computerCount = 0;
+
+            Console.Clear();
 
             Console.WriteLine("빙고게임을 시작합니다.");
-            Console.WriteLine("1 ~ 25의 숫자를 입력해주십시오. : ");
-
-
-            RenderMap(Bingo)
+            RenderMap(Bingo);
             while (true)
             {
-                Console.Clear();
+                Console.Write("1 ~ 25의 숫자를 입력해주십시오. : ");
                 int input = int.Parse(Console.ReadLine());
                 if (input > 25 || input < 0)
                 {
@@ -39,10 +40,29 @@ namespace TodayGit
                     }
                 }
 
-                count = BingoClear(Bingo);
-                Console.WriteLine($"맞춘 줄 갯수 : {count}");
+                Console.WriteLine("컴퓨터의 차례입니다.");
+                int comChoice = ComputerChoice();
+
+                for (int i = 0; i < 5; i++)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        if (comBingo[i, j] == comChoice.ToString())
+                        {
+                            comBingo[i, j] = "#";
+                        }
+                    }
+                }
+
+                playerCount = BingoClear(Bingo);
+                computerCount = BingoClear(comBingo);
+                Console.WriteLine($"맞춘 줄 갯수 : {playerCount}");
+                Console.WriteLine($"컴퓨터가 맞춘 줄 갯수 : {computerCount}");
+                Console.WriteLine("계속하려면 아무키나 누르십시오");
+                Console.ReadKey();
+                Console.Clear();
                 RenderMap(Bingo);
-                if (count == 3)
+                if (playerCount == 3)
                 {
                     Console.WriteLine("Bingo!");
                     Console.WriteLine("게임을 클리어하셨습니다!");
@@ -52,7 +72,16 @@ namespace TodayGit
 
         }
 
-        static int BingoClear(string[,] Bingo)
+        public int ComputerChoice()
+        {
+            Random rand = new Random();
+            int com = rand.Next(1, 26);
+
+            return com;
+        }
+
+
+        public int BingoClear(string[,] Bingo)
         {
             int bCount = 0;
             string[] clear = new string[5];
@@ -89,8 +118,7 @@ namespace TodayGit
             return bCount;
         }
 
-
-        static string[,] RenderNumber()
+        public string[,] RenderNumber()
         {
             Random rand = new Random();
             string[] num = new string[25];
@@ -120,7 +148,7 @@ namespace TodayGit
             return Bingo;
         }
 
-        static void RenderMap(string[,] Bingo)
+        public void RenderMap(string[,] Bingo)
         {
             for (int i = 0; i < Bingo.GetLength(0); i++)
             {
