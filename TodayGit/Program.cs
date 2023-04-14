@@ -4,7 +4,19 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+           
+        }
+
+        static void FindWord()
+        {
+            string str = Console.ReadLine();
+            string str2 = Console.ReadLine();
+            int? result = str.IndexOf(str2);
+
+            if (result == null)
+                result = -1;
+
+            Console.WriteLine(result);
         }
     }
 }
