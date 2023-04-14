@@ -10,6 +10,12 @@ namespace TodayGit
     {
         enum Direction { Up, Down, Left, Right, None}
 
+        struct Player
+        {
+            public int x;
+            public int y;
+        }
+
         public int[,] RandomNumber()
         {
             Random rand = new Random();
