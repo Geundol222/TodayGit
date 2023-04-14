@@ -54,20 +54,24 @@ namespace TodayGit
                     }
                 }
 
-                playerCount = BingoClear(Bingo);
-                computerCount = BingoClear(comBingo);
-                Console.WriteLine($"맞춘 줄 갯수 : {playerCount}");
-                Console.WriteLine($"컴퓨터가 맞춘 줄 갯수 : {computerCount}");
-                Console.WriteLine("계속하려면 아무키나 누르십시오");
-                Console.ReadKey();
-                Console.Clear();
-                RenderMap(Bingo);
                 if (playerCount == 3)
                 {
                     Console.WriteLine("Bingo!");
                     Console.WriteLine("게임을 클리어하셨습니다!");
                     break;
-                }                
+                }
+
+                playerCount = BingoClear(Bingo);
+                computerCount = BingoClear(comBingo);
+                Console.WriteLine($"맞춘 줄 갯수 : {playerCount}");
+                Console.WriteLine($"컴퓨터가 맞춘 줄 갯수 : {computerCount}");
+
+                comChoice = ComputerChoice();
+
+                Console.WriteLine("계속하려면 아무키나 누르십시오");
+                Console.ReadKey();
+                Console.Clear();
+                RenderMap(Bingo); 
             }
 
         }
