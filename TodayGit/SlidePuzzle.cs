@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace TodayGit
 {
-    internal class SlidePuzzle
+    public class SlidePuzzle
     {
-        enum Direction { Up, Down, Left, Right, None}
+        public enum Direction { Up, Down, Left, Right, None}
 
-        struct Player
+        public struct Player
         {
             public int x;
             public int y;
@@ -22,10 +22,19 @@ namespace TodayGit
 
             Console.Clear();
 
-            int[,] map = RandomNumber();
+            int?[,] map = RandomNumber();
             Player player = new Player();
 
             RenderMap(map, player);
+
+            while (true)
+            {
+                Direction dir = GameInput(player);
+
+                player = GameUpdate(dir, map, player);
+
+                RenderMap(map, player);
+            }
         }
 
         public Direction GameInput(Player player)
@@ -84,8 +93,8 @@ namespace TodayGit
                 {
                     if (map[i, j] == map[player.y, player.x])
                     {
-                        i = prevPlayer.x;
-                        j = prevPlayer.y;
+                        i = prevPlayer.y;
+                        j = prevPlayer.x;
                     }                    
                 }                
             }
@@ -93,11 +102,11 @@ namespace TodayGit
             return player;
         }
 
-        public int[,] RandomNumber()
+        public int?[,] RandomNumber()
         {
             Random rand = new Random();
             int[] num = new int[25];
-            int[,] number = new int[5, 5];
+            int?[,] number = new int?[5, 5];
             int index = 0;
 
             for (int i = 0; i < num.Length; i++)
@@ -123,22 +132,29 @@ namespace TodayGit
             return number;
         }
 
-        public void RenderMap(int[,] number, Player player)
+        public void RenderMap(int?[,] number, Player player)
         {
+            Console.Clear();
+
             for (int i = 0; i < number.GetLength(0); i++)
             {
                 for (int j = 0; j < number.GetLength(1); j++)
                 {
                     if (number[i, j] == 0)
                     {
-                        player.x = i;
-                        player.y = j;
+                        player.y = i;
+                        player.x = j;
                     }
                     Console.Write($" {number[i, j]}\t");
                 }
                 Console.WriteLine();
                 Console.WriteLine();
             }
+
+            Console.SetCursorPosition(player.x * 4, player.y * 2);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write('0');
+            Console.ResetColor();
         }
     }
 }

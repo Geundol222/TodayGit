@@ -9,6 +9,7 @@ namespace TodayGit
         static void Main(string[] args)
         {
             Bingo bingo = new Bingo();
+            SlidePuzzle slidePuzzle = new SlidePuzzle();
             int num = int.Parse(Console.ReadLine());
             int result = SumOfDigit(num);
             Console.WriteLine(result);
@@ -23,7 +24,8 @@ namespace TodayGit
                 Console.Write($"{item}, ");
             }
 
-            bingo.GameStart();
+            slidePuzzle.GameStart();
+           // bingo.GameStart();
             // UpDownGame();
         }
 
