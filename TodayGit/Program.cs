@@ -4,7 +4,10 @@
     {
         static void Main(string[] args)
         {
-           
+            int num = int.Parse(Console.ReadLine());
+            int result = SumOfDigit(num);
+            Console.WriteLine(result);
+
         }
 
         static void FindWord()
@@ -41,6 +44,18 @@
                     return false;
             }
             return true;
+        }
+
+        static int SumOfDigit(int num)
+        {
+            int result = 0;
+            while (num > 0)
+            {
+                result += num % 10;
+                num /= 10;
+            }
+
+            return result;
         }
     }
 }
