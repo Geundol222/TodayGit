@@ -9,7 +9,7 @@ namespace TodayGit
 {
     internal class Bingo
     {
-        static void GameStart()
+        public static void GameStart()
         {
             string[,] Bingo = RenderNumber();
             int count = 0;
@@ -18,6 +18,7 @@ namespace TodayGit
             Console.WriteLine("1 ~ 25의 숫자를 입력해주십시오. : ");
 
 
+            RenderMap(Bingo)
             while (true)
             {
                 Console.Clear();
@@ -37,6 +38,16 @@ namespace TodayGit
                         }
                     }
                 }
+
+                count = BingoClear(Bingo);
+                Console.WriteLine($"맞춘 줄 갯수 : {count}");
+                RenderMap(Bingo);
+                if (count == 3)
+                {
+                    Console.WriteLine("Bingo!");
+                    Console.WriteLine("게임을 클리어하셨습니다!");
+                    break;
+                }                
             }
 
         }
