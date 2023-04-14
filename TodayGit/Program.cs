@@ -1,4 +1,6 @@
-﻿namespace TodayGit
+﻿using System.Collections.Immutable;
+
+namespace TodayGit
 {
     internal class Program
     {
@@ -8,7 +10,17 @@
             int result = SumOfDigit(num);
             Console.WriteLine(result);
 
-            UpDownGame();
+            int[] arr1 = { 1, 5, 5, 10 };
+            int[] arr2 = { 3, 4, 5, 5, 10 };
+            int[] arr3 = { 5, 5, 10, 20 };
+
+            int[] items = FindCommonItems(arr1, arr2, arr3);
+            foreach(int item in items)
+            {
+                Console.Write($"{item}, ");
+            }
+
+            // UpDownGame();
         }
 
         static void FindWord()
@@ -55,6 +67,13 @@
                 result += num % 10;
                 num /= 10;
             }
+
+            return result;
+        }
+
+        static int[] FindCommonItems(int[] arr1, int[] arr2, int[] arr3)
+        {
+            int[] result = arr1.Intersect(arr2).Intersect(arr3).ToArray();
 
             return result;
         }
