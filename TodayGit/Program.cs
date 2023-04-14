@@ -26,5 +26,21 @@
 
             Console.WriteLine(strArray.Length);
         }
+
+        static bool IsPrime(int n)
+        {
+            int[] arr = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                arr[i] = i + 1;
+            }
+
+            foreach (int index in arr)
+            {
+                if (n % index == 0 && index != 1 && index != n)
+                    return false;
+            }
+            return true;
+        }
     }
 }
