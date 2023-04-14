@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,6 +39,43 @@ namespace TodayGit
                 }
             }
 
+        }
+
+        static int BingoClear(string[,] Bingo)
+        {
+            int bCount = 0;
+            string[] clear = new string[5];
+
+            int countCross1 = 0;
+            int countCross2 = 0;
+
+            for (int i = 0; i < 5; i++)
+            {
+                int countCal = 0;
+                int countRow = 0;
+                for (int j = 0; j < 5; j++)
+                {
+                    if (Bingo[i, j] == "#")
+                        countRow++;
+                    if (Bingo[j, i] == "#")
+                        countCal++;
+                    if (i == j && Bingo[i, j] == "#")
+                        countCross1++;
+                    if ((i + j == 4) && Bingo[i, j] == "#")
+                        countCross2++;
+                }
+                if (countRow == 5)
+                    bCount++;
+                if (countCal == 5)
+                    bCount++;
+            }
+
+            if (countCross1 == 5)
+                bCount++;
+            if (countCross2 == 5)
+                bCount++;
+
+            return bCount;
         }
 
 
