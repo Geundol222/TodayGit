@@ -37,5 +37,18 @@ namespace TodayGit
             }
             return number;
         }
+
+        public void RenderMap(int[,] number)
+        {
+            for (int i = 0; i < number.GetLength(0); i++)
+            {
+                for (int j = 0; j < number.GetLength(1); j++)
+                {
+                    Console.Write($" {number[i, j]}\t");
+                }
+                Console.WriteLine();
+                Console.WriteLine();
+            }
+        }
     }
 }
