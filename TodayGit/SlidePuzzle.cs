@@ -16,6 +16,18 @@ namespace TodayGit
             public int y;
         }
 
+        public void GameStart()
+        {
+            Console.CursorVisible = false;
+
+            Console.Clear();
+
+            int[,] map = RandomNumber();
+            Player player = new Player();
+
+            RenderMap(map);
+        }
+
         public int[,] RandomNumber()
         {
             Random rand = new Random();
