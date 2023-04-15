@@ -70,7 +70,7 @@ namespace TodayGit
                         {
                             if (map[j, i] == 0)
                             {
-                                if (i - 1 > 0)
+                                if (i - 1 >= 0)
                                 {
                                     int temp = map[j, i];
                                     map[j, i] = map[j, i - 1];
@@ -84,9 +84,9 @@ namespace TodayGit
                     }
                     break;
                 case Direction.Down:
-                    for (int i = 0; i < map.GetLength(0); i++)
+                    for (int i = map.GetLength(0) - 1; i >= 0; i--)
                     {
-                        for (int j = 0; j < map.GetLength(1); j++)
+                        for (int j = map.GetLength(1) - 1; j >= 0; j--)
                         {
                             if (map[j, i] == 0)
                             {
@@ -110,7 +110,7 @@ namespace TodayGit
                         {
                             if (map[j, i] == 0)
                             {
-                                if (j - 1 > 0)
+                                if (j - 1 >= 0)
                                 {
                                     int temp = map[j, i];
                                     map[j, i] = map[j - 1, i];
@@ -190,6 +190,7 @@ namespace TodayGit
                 Console.WriteLine();
                 Console.WriteLine();
             }
+            Console.WriteLine("← 왼쪽, ↑ 위쪽, ↓ 아래쪽, → 오른쪽");
         }
     }
 }
