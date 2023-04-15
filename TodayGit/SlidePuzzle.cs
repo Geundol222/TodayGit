@@ -6,38 +6,33 @@ using System.Threading.Tasks;
 
 namespace TodayGit
 {
+    
+
     public class SlidePuzzle
     {
         public enum Direction { Up, Down, Left, Right, None}
 
-        public struct Player
-        {
-            public int x;
-            public int y;
-        }
-
         public void GameStart()
         {
-            Console.CursorVisible = false;
+            Console.CursorVisible = true;
 
             Console.Clear();
 
-            int?[,] map = RandomNumber();
-            Player player = new Player();
+            int[,] map = RandomNumber();
 
-            RenderMap(map, player);
+            RenderMap(map);
 
             while (true)
             {
-                Direction dir = GameInput(player);
+                Direction dir = GameInput();
 
-                player = GameUpdate(dir, map, player);
+                map = GameUpdate(dir, map);
 
-                RenderMap(map, player);
+                RenderMap(map);
             }
         }
 
-        public Direction GameInput(Player player)
+        public Direction GameInput()
         {
             Direction dir;
 
@@ -64,49 +59,99 @@ namespace TodayGit
             return dir;
         }
 
-        public Player GameUpdate(Direction input, int?[,] map, Player player)
+        public int[,] GameUpdate(Direction input, int[,] map)
         {
-            Player prevPlayer = player;
-
             switch (input)
             {
                 case Direction.Up:
-                    player.y--;
+                    for (int i = 0; i < map.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < map.GetLength(1); j++)
+                        {
+                            if (map[j, i] == 0)
+                            {
+                                if (i - 1 > 0)
+                                {
+                                    int temp = map[j, i];
+                                    map[j, i] = map[j, i - 1];
+                                    map[j, i - 1] = temp;
+                                    break;
+                                }
+                                else
+                                    break;
+                            }
+                        }
+                    }
                     break;
                 case Direction.Down:
-                    player.y++;
+                    for (int i = 0; i < map.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < map.GetLength(1); j++)
+                        {
+                            if (map[j, i] == 0)
+                            {
+                                if (i + 1 < 5)
+                                {
+                                    int temp = map[j, i];
+                                    map[j, i] = map[j, i + 1];
+                                    map[j, i + 1] = temp;
+                                    break;
+                                }
+                                else
+                                    break;
+                            }
+                        }
+                    }
                     break;
                 case Direction.Left:
-                    player.x--;
+                    for (int i = 0; i < map.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < map.GetLength(1); j++)
+                        {
+                            if (map[j, i] == 0)
+                            {
+                                if (j - 1 > 0)
+                                {
+                                    int temp = map[j, i];
+                                    map[j, i] = map[j - 1, i];
+                                    map[j - 1, i] = temp;
+                                    break;
+                                }
+                                else
+                                    break;
+                            }
+                        }
+                    }
                     break;
                 case Direction.Right:
-                    player.x++;
+                    for (int i = 0; i < map.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < map.GetLength(1); j++)
+                        {
+                            if (map[j, i] == 0)
+                            {
+                                if (j + 1 < 5)
+                                {
+                                    int temp = map[j, i];
+                                    map[j, i] = map[j + 1, i];
+                                    map[j + 1, i] = temp;
+                                    break;
+                                }
+                                else
+                                    break;
+                            }
+                        }
+                    }
                     break;               
             }
-
-            if (map[player.y, player.x] == null)
-                player = prevPlayer;
-
-            for (int i = 0; i < map.GetLength(0); i++)
-            {
-                for (int j = 0; j < map.GetLength(1); j++)
-                {
-                    if (map[i, j] == map[player.y, player.x])
-                    {
-                        i = prevPlayer.y;
-                        j = prevPlayer.x;
-                    }                    
-                }                
-            }
-
-            return player;
+            return map;
         }
 
-        public int?[,] RandomNumber()
+        public int[,] RandomNumber()
         {
             Random rand = new Random();
             int[] num = new int[25];
-            int?[,] number = new int?[5, 5];
+            int[,] number = new int[5, 5];
             int index = 0;
 
             for (int i = 0; i < num.Length; i++)
@@ -132,29 +177,19 @@ namespace TodayGit
             return number;
         }
 
-        public void RenderMap(int?[,] number, Player player)
+        public void RenderMap(int[,] map)
         {
             Console.Clear();
 
-            for (int i = 0; i < number.GetLength(0); i++)
+            for (int i = 0; i < map.GetLength(0); i++)
             {
-                for (int j = 0; j < number.GetLength(1); j++)
+                for (int j = 0; j < map.GetLength(1); j++)
                 {
-                    if (number[i, j] == 0)
-                    {
-                        player.y = i;
-                        player.x = j;
-                    }
-                    Console.Write($" {number[i, j]}\t");
+                    Console.Write($" {map[j, i]}\t");
                 }
                 Console.WriteLine();
                 Console.WriteLine();
             }
-
-            Console.SetCursorPosition(player.x * 4, player.y * 2);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write('0');
-            Console.ResetColor();
         }
     }
 }
